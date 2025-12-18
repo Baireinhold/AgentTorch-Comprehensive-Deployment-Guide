@@ -1,83 +1,87 @@
 
-# AgentTorch Comprehensive Deployment Guide | AgentTorch 全面部署指南
+# AgentTorch: Ultimate Cross-Platform Deployment Guide 
+# AgentTorch 全平台原生加速部署指南
 
-[![OS-Windows](https://img.shields.io/badge/OS-Windows%2011-blue?logo=windows)](https://www.microsoft.com/windows)
-[![OS-Ubuntu](https://img.shields.io/badge/OS-Ubuntu%2024.04-orange?logo=ubuntu)](https://ubuntu.com/)
-[![OS-macOS](https://img.shields.io/badge/OS-macOS%20(M1/M2/M3)-lightgrey?logo=apple)](https://www.apple.com/macos/)
+[![OS-Windows](https://img.shields.io/badge/OS-Windows%2011-blue?logo=windows)](./windows_guide.md)
+[![OS-Ubuntu](https://img.shields.io/badge/OS-Ubuntu%2022.04%2F24.04-orange?logo=ubuntu)](./ubuntu_guide.md)
+[![OS-macOS](https://img.shields.io/badge/OS-macOS%20(M1--M4)-lightgrey?logo=apple)](./mac_guide.md)
 [![GPU-NVIDIA](https://img.shields.io/badge/GPU-RTX%2030%2F40%2F50-green?logo=nvidia)](https://www.nvidia.com/)
-[![CUDA-Multi](https://img.shields.io/badge/CUDA-11.8%20--%2012.8%2B-green?logo=nvidia)](https://developer.nvidia.com/cuda-toolkit)
+[![GPU-AMD](https://img.shields.io/badge/GPU-ROCm%20Native-red?logo=amd)](https://www.amd.com/en/developer/rocm.html)
 [![License-MIT](https://img.shields.io/badge/License-MIT-yellow)](https://opensource.org/licenses/MIT)
 
-> **"Empowering social complexity research through high-performance differentiable simulation, across all platforms."**  
-> **“跨平台高性能可微仿真，赋能社会复杂性研究。”**
+> **"Native Performance for Every Researcher: NVIDIA CUDA, AMD ROCm, and Apple Silicon."**  
+> **“为每一位研究者提供原生性能：适配 NVIDIA CUDA、AMD ROCm 与 Apple Silicon。”**
 
 ---
 
 ### 🌟 Project Philosophy | 项目理念
 
 **English:**
-Research should be boundaryless. Whether you are on a high-performance Windows workstation, a Linux cluster, or a sleek MacBook, the power of AgentTorch should be at your fingertips. Our philosophy is **"Universal, Adaptive, and Researcher-Centric"**. We focus on solving the "last mile" of deployment, ensuring that the latest GPU architectures (from RTX 30 series to the newest Blackwell 50 series) and Apple Silicon (MPS) are fully optimized for humanities and social science simulation.
+The complexity of human society deserves the most powerful computational tools, regardless of your hardware choice. Our mission is to bridge the gap between cutting-edge differentiable simulation and diverse hardware environments. By leveraging **Native Acceleration** (CUDA, ROCm, MPS), we ensure that social scientists can focus on insights rather than environment debugging. We advocate for a **"Universal, High-Performance, and Clean"** research workspace.
 
 **中文：**
-研究不应有边界。无论你使用的是高性能 Windows 工作站、Linux 集群，还是轻便的 MacBook，AgentTorch 的力量都应触手可及。我们的理念是 **“普适、自适应、以研究者为中心”**。我们致力于解决部署的“最后一公里”，确保从 RTX 30 系列到最新的 Blackwell 50 系列显卡，以及 Apple Silicon (MPS) 架构，都能为人文社科模拟提供最优性能支持。
+人类社会的复杂性值得最强大的计算工具来模拟，无论你选择何种硬件。我们的使命是在尖端可微仿真技术与多样化的硬件环境之间搭建桥梁。通过利用 **原生加速技术**（CUDA, ROCm, MPS），我们确保社会科学家能够专注于洞察发现而非环境调试。我们倡导 **“普适、高性能、纯净”** 的科研工作空间。
 
 ---
 
 ### ❤️ Acknowledgement & Homage | 致敬官方与版权说明
 
-This repository is a **Community-Driven Deployment Extension** for the original **AgentTorch** project. 
+This repository is a **Community-Driven Deployment & Application Extension** for the original **AgentTorch** project. 
 
-We would like to express our deepest gratitude and respect to the **AgentTorch Team** (Official Repository: [AgentTorch/AgentTorch](https://github.com/AgentTorch/AgentTorch)). Their groundbreaking work in building a *differentiable, GPU-accelerated agent-based modeling framework* has revolutionized how we simulate and optimize complex large-scale systems.
+We would like to express our deepest gratitude to the **AgentTorch Team** (Official Repository: [AgentTorch/AgentTorch](https://github.com/AgentTorch/AgentTorch)). Their visionary work in building a *differentiable, GPU-accelerated agent-based modeling framework* provides the core engine for this guide. We are committed to extending its accessibility to the broader research community.
 
-**本仓库是 AgentTorch 官方项目的社区化部署扩展指南。**
+**本仓库是 AgentTorch 官方项目的社区部署与应用扩展指南。**
 
-我们向 **AgentTorch 官方团队**（项目主页：[AgentTorch/AgentTorch](https://github.com/AgentTorch/AgentTorch)）致以最诚挚的感谢与敬意。他们在构建 *可微、GPU 加速的大群体行为建模框架* 方面所做的开创性工作，彻底改变了我们模拟与优化大规模复杂系统的方式。本指南旨在打破硬件藩篱，让更多跨学科研究者受益。
+我们向 **AgentTorch 官方团队**（项目主页：[AgentTorch/AgentTorch](https://github.com/AgentTorch/AgentTorch)）致以崇高的敬意。他们在构建 *可微、GPU 加速的大群体行为建模框架* 方面的远见卓识，为本指南提供了核心引擎。我们致力于降低其门槛，让这一卓越框架惠及更广泛的研究群体。
 
 ---
 
 ### 🚀 Key Features | 本指南核心亮点
 
-*   **🎮 Full NVIDIA Spectrum**: Tailored support for **RTX 30 (Ampere)**, **RTX 40 (Ada)**, and **RTX 50 (Blackwell)** series.
-    *   **全系 NVIDIA 支持**：针对 **RTX 30/40/50 系列** 显卡的精细化配置。
-*   **🍎 macOS Native Optimization**: Leveraging **Apple Silicon (M1/M2/M3)** via Metal Performance Shaders (MPS).
-    *   **macOS 原生优化**：充分利用 Apple Silicon 芯片的 **MPS 加速** 技术。
-*   **🐍 Flexible CUDA Versions**: Support for CUDA **11.8, 12.1, 12.4, 12.6, and 12.8+**.
-    *   **灵活的 CUDA 适配**：覆盖从 11.8 到最新 12.8+ 的全版本 CUDA 安装方案。
-*   **📂 C-Drive Clean Deployment**: For Windows users, we prioritize non-system disk (D-Drive) environment isolation.
-    *   **C 盘清爽部署**：针对 Windows 用户，优先采用非系统盘环境隔离逻辑。
+*   **⚡ NVIDIA Blackwell Ready**: Full optimization for **RTX 30/40/50** series with CUDA 12.x support.
+    *   **深度适配 NVIDIA 全系**：完美支持 **RTX 30/40/50** 系列显卡及最新 CUDA 环境。
+*   **🔴 Native AMD ROCm**: Support for **AMD GPUs** on both Windows and Ubuntu (22.04/24.04) using native ROCm kernels.
+    *   **原生 AMD 加速**：支持 Windows 与 Ubuntu 双系统的 **AMD ROCm 原生部署**，彻底释放显卡算力。
+*   **🍎 Apple Silicon M1-M4**: Optimized Metal Performance Shaders (MPS) support for the entire Mac lineup.
+    *   **苹果芯片全家桶**：原生支持从 **M1 到最新的 M4** 芯片，利用 MPS 实现高效仿真。
+*   **📂 Scholar-Centric Deployment**: Enforced "C-Drive Clean" logic for Windows and isolated environments for Linux/Mac.
+    *   **以学者为中心**：坚持 Windows “C 盘零污染”部署，为各系统提供隔离、纯净的运行环境。
 
 ---
 
 ### 📂 Navigation | 快速导航
 
-| 操作系统 (OS) | 核心特性 | 部署指南 |
-| :--- | :--- | :--- |
-| **Windows 11** | RTX 30/40/50 + 非C盘部署 | [View Guide](./windows_guide.md) |
-| **Ubuntu 24.04** | 物理机/WSL2/深度服务器 | [View Guide](./ubuntu_guide.md) |
-| **macOS** | M1/M2/M3 (MPS 加速) | [View Guide](./mac_guide.md) |
+| 平台 (Platform) | 硬件架构 (Hardware) | 核心技术 (Backend) | 指南链接 (Link) |
+| :--- | :--- | :--- | :--- |
+| **Windows 11** | NVIDIA RTX 30/40/50 | CUDA 11.8 - 12.8+ | [View](./windows_nvidia.md) |
+| **Windows 11** | AMD Radeon Series | **ROCm for Windows** | [View](./windows_amd.md) |
+| **macOS** | Apple M1 / M2 / M3 / M4 | MPS (Metal) | [View](./mac_guide.md) |
+| **Ubuntu** | NVIDIA / AMD ROCm | CUDA / ROCm Native | [View](./ubuntu_guide.md) |
 
 ---
 
-### 🛠️ Quick Hardware Check | 快速硬件自查命令
+### 🛠️ Quick Diagnostics | 快速环境自查
 
-**Windows (PowerShell):**
-```powershell
-nvidia-smi  # 检查 NVIDIA 显卡与驱动
-```
+运行以下命令确认你的硬件与驱动状态：
 
-**macOS (Terminal):**
-```bash
-sysctl -n machdep.cpu.brand_string  # 检查芯片型号 (M1/M2/M3)
-```
+*   **NVIDIA (Win/Linux):** `nvidia-smi`
+*   **AMD (Win/Linux):** `rocm-smi` 或 `rocminfo`
+*   **Apple Silicon:** `sysctl -n machdep.cpu.brand_string`
 
 ---
 
-### 🤝 Contributing & Support | 贡献与支持
+### 🤝 Future Roadmap | 后续计划
 
-This guide is maintained by **Baireinhold** with AI collaborative support from **Gemini** and **Claude**. We welcome feedback from scholars in Digital Humanities, Computational Social Science, and beyond.
+We are not just providing scripts; we are building an ecosystem for computational social science.
+我们不仅提供脚本，更在构建计算社会科学的生态系统。
 
-本指南由 **Baireinhold** 维护，由 **Gemini** 与 **Claude** 提供 AI 协同支持。我们欢迎数字人文、计算社会科学及相关领域学者的反馈。
+*   **Simulation Zoo**: Open-source collection of pre-built behavior simulation instances.
+    *   **仿真模型库**：持续开源各类预构建的社会行为仿真实例。
+*   **Performance Benchmarks**: Detailed metrics across different hardware architectures.
+    *   **性能基准测试**：提供不同硬件架构下的详细运行效率对比。
 
 ---
 
 **Disclaimer:** *AgentTorch is a trademark/project of its respective owners. This guide is an independent community contribution and is not officially affiliated with the AgentTorch team.*
+
+**免责声明：** *AgentTorch 是其原作者的商标/项目。本指南为独立的社区贡献，不代表 AgentTorch 官方团队。*
